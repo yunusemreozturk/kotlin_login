@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="menu">Menü</string>
+    <string name="hello_welcome">Hello, Welcome!</string>
+    <string name="welcome_code_champ">Welcome to codeChamp.in Top platform to coders</string>
+    <string name="login">Login</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="or_via_social_media">Or via social media</string>
+    <string name="welcome_back">Welcome Back!</string>
+    <string name="login_continue">Login to continue</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="remember_me">Remember Me</string>
+    <string name="forget_password">Forget password</string>
+    <string name="dont_have_account">Don\'t have an account</string>
+    <string name="create_account">Create Account Now!</string>
+    <string name="full_name">Full Name</string>
+    <string name="email">Email</string>
+    <string name="phone_no">Phone No</string>
+    <string name="home">Home</string>
+    <string name="back_button">Geri</string>
+</resources>
