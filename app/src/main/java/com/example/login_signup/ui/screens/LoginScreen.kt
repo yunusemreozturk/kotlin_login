@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material3.Checkbox
@@ -22,6 +21,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.login_signup.R
+import com.example.login_signup.models.UserModel
 import com.example.login_signup.ui.theme.MyApplicationTheme
 import com.example.login_signup.ui.theme.Primary
 import com.example.login_signup.ui.theme.Typography
@@ -29,7 +29,11 @@ import com.example.login_signup.ui.widgets.LoginButton
 import com.example.login_signup.ui.widgets.FilledTextField
 
 @Composable
-fun LoginScreen(loginButtonOnClick: () -> Unit = {}, signUpOnClick: () -> Unit = {}) {
+fun LoginScreen(
+    userModel: UserModel = UserModel(),
+    loginButtonOnClick: () -> Unit = {},
+    signUpOnClick: () -> Unit = {}
+) {
     Column(
         modifier = Modifier
             .fillMaxWidth(),
@@ -51,9 +55,17 @@ fun LoginScreen(loginButtonOnClick: () -> Unit = {}, signUpOnClick: () -> Unit =
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            FilledTextField(textInt = R.string.login)
+            FilledTextField(
+                title = R.string.login,
+                text = userModel.email ?: "",
+                onValueChange = { userModel.email = it }
+            )
             Box(modifier = Modifier.height(30.dp))
-            FilledTextField(textInt = R.string.password)
+            FilledTextField(
+                title = R.string.password,
+                text = userModel.password ?: "",
+                onValueChange = { userModel.password = it }
+            )
         }
         Box(modifier = Modifier.height(10.dp))
         Row(

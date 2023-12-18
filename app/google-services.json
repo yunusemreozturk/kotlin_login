@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "55231098806",
+    "project_id": "kotlin-login-39ed1",
+    "storage_bucket": "kotlin-login-39ed1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:55231098806:android:f7c31e8228c5c1227a9b17",
+        "android_client_info": {
+          "package_name": "com.example.login_signup"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBfYyKnz4bWBS7zRcLXmvwCgbSYGP3z7zg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

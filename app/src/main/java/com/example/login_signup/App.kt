@@ -17,6 +17,7 @@ import com.example.login_signup.ui.screens.LoginScreen
 import com.example.login_signup.ui.screens.SignUpScreen
 import com.example.login_signup.ui.screens.WelcomeScreen
 import com.example.login_signup.ui.widgets.TopAppBarWidget
+import com.example.login_signup.viewmodel.AuthViewModel
 
 enum class AppScreen(@StringRes val title: Int) {
     Welcome(R.string.hello_welcome),
@@ -25,9 +26,9 @@ enum class AppScreen(@StringRes val title: Int) {
     Home(R.string.home)
 }
 
-@ExperimentalMaterial3Api
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun App() {
+fun App(viewModel: AuthViewModel = viewModel()) {
     val navController = rememberNavController()
 
     val backStackEntry by navController.currentBackStackEntryAsState()
