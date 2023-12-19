@@ -20,6 +20,7 @@ import com.example.login_signup.ui.screens.WelcomeScreen
 import com.example.login_signup.ui.widgets.TopAppBarWidget
 import com.example.login_signup.viewmodel.AuthViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.login_signup.ui.screens.SplashScreen
 import kotlinx.coroutines.launch
 
 enum class AppScreen(@StringRes val title: Int) {
@@ -33,58 +34,49 @@ enum class AppScreen(@StringRes val title: Int) {
 @Composable
 fun App(viewModel: AuthViewModel = viewModel()) {
     val navController = rememberNavController()
-    val coroutineScope = rememberCoroutineScope()
 
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentScreen = AppScreen.valueOf(
         backStackEntry?.destination?.route ?: AppScreen.Welcome.name
     )
 
-    Scaffold(
-        topBar = {
-            TopAppBarWidget(
-                currentScreen,
-                canNavigateBack = (navController.previousBackStackEntry != null),
-                navigateUp = { navController.navigateUp() }
-            )
-        }
-    ) {
-        NavHost(
-            navController = navController,
-            startDestination = AppScreen.Welcome.name,
-            modifier = Modifier
-                .padding(it)
-                .padding(horizontal = 30.dp),
+    if (viewModel.isBusy) {
+        SplashScreen()
+    } else {
+        Scaffold(
+            topBar = {
+                TopAppBarWidget(
+                    currentScreen,
+                    canNavigateBack = (navController.previousBackStackEntry != null),
+                    navigateUp = { navController.navigateUp() }
+                )
+            }
         ) {
-            composable(AppScreen.Welcome.name) {
-                WelcomeScreen(
-                    loginButtonOnClick = { navController.navigate(AppScreen.Login.name) },
-                    signUpOnClick = { navController.navigate(AppScreen.SignUp.name) },
-                )
-            }
-            composable(AppScreen.Login.name) {
-                LoginScreen(
-                    authViewModel = viewModel,
-                    loginButtonOnClick = {
-                        coroutineScope.launch {
-                            viewModel.loginButtonOnClick(navController)
-                        }
-                    },
-                    signUpOnClick = { navController.navigate(AppScreen.SignUp.name) },
-                )
-            }
-            composable(AppScreen.SignUp.name) {
-                SignUpScreen(
-                    authViewModel = viewModel,
-                    signUpOnClick = {
-                        coroutineScope.launch {
-                            viewModel.signUpButtonClick(navController)
-                        }
-                    }
-                )
-            }
-            composable(AppScreen.Home.name) {
-                HomeScreen()
+            NavHost(
+                navController = navController,
+                startDestination = AppScreen.Welcome.name,
+                modifier = Modifier
+                    .padding(it)
+                    .padding(horizontal = 30.dp),
+            ) {
+                composable(AppScreen.Welcome.name) {
+                    WelcomeScreen(
+                        loginButtonOnClick = { navController.navigate(AppScreen.Login.name) },
+                        signUpOnClick = { navController.navigate(AppScreen.SignUp.name) },
+                    )
+                }
+                composable(AppScreen.Login.name) {
+                    LoginScreen(
+                        authViewModel = viewModel,
+                        signUpOnClick = { navController.navigate(AppScreen.SignUp.name) },
+                    )
+                }
+                composable(AppScreen.SignUp.name) {
+                    SignUpScreen(authViewModel = viewModel)
+                }
+                composable(AppScreen.Home.name) {
+                    HomeScreen()
+                }
             }
         }
     }
