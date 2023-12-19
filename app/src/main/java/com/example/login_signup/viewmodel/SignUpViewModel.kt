@@ -33,15 +33,15 @@ class SignUpViewModel : AuthViewModel() {
     }
 
     private fun validateName(): Boolean {
-        val passwordResult = nameValidate.execute(signUpFormState.password)
-        signUpFormState = signUpFormState.copy(passwordError = passwordResult.errorMessage)
-        return passwordResult.successful
+        val nameResult = nameValidate.execute(signUpFormState.fullName)
+        signUpFormState = signUpFormState.copy(fullNameError = nameResult.errorMessage)
+        return nameResult.successful
     }
 
     private fun validatePhoneNo(): Boolean {
-        val passwordResult = phoneNoValidate.execute(signUpFormState.password)
-        signUpFormState = signUpFormState.copy(passwordError = passwordResult.errorMessage)
-        return passwordResult.successful
+        val phoneResult = phoneNoValidate.execute(signUpFormState.phoneNo)
+        signUpFormState = signUpFormState.copy(phoneNoError = phoneResult.errorMessage)
+        return phoneResult.successful
     }
 
     fun onSignUpEvent(event: SignUpFormEvent) {

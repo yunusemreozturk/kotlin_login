@@ -6,7 +6,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
@@ -21,7 +20,8 @@ import com.example.login_signup.ui.widgets.TopAppBarWidget
 import com.example.login_signup.viewmodel.AuthViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.login_signup.ui.screens.SplashScreen
-import kotlinx.coroutines.launch
+import com.example.login_signup.viewmodel.LoginViewModel
+import com.example.login_signup.viewmodel.SignUpViewModel
 
 enum class AppScreen(@StringRes val title: Int) {
     Welcome(R.string.hello_welcome),
@@ -32,7 +32,11 @@ enum class AppScreen(@StringRes val title: Int) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun App(viewModel: AuthViewModel = viewModel()) {
+fun App(
+    viewModel: AuthViewModel = viewModel(),
+    loginViewModel: LoginViewModel = viewModel(),
+    signUpViewModel: SignUpViewModel = viewModel()
+) {
     val navController = rememberNavController()
 
     val backStackEntry by navController.currentBackStackEntryAsState()
@@ -67,12 +71,12 @@ fun App(viewModel: AuthViewModel = viewModel()) {
                 }
                 composable(AppScreen.Login.name) {
                     LoginScreen(
-                        authViewModel = viewModel,
+                        viewModel = loginViewModel,
                         signUpOnClick = { navController.navigate(AppScreen.SignUp.name) },
                     )
                 }
                 composable(AppScreen.SignUp.name) {
-                    SignUpScreen(authViewModel = viewModel)
+                    SignUpScreen(viewModel = signUpViewModel)
                 }
                 composable(AppScreen.Home.name) {
                     HomeScreen()

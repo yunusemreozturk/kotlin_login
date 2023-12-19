@@ -27,11 +27,11 @@ import com.example.login_signup.ui.theme.Typography
 import com.example.login_signup.ui.widgets.custom_textfields.CustomTextFieldForEmail
 import com.example.login_signup.ui.widgets.LoginButton
 import com.example.login_signup.ui.widgets.custom_textfields.CustomTextFieldForPassword
-import com.example.login_signup.viewmodel.AuthViewModel
+import com.example.login_signup.viewmodel.LoginViewModel
 
 @Composable
 fun LoginScreen(
-    authViewModel: AuthViewModel = AuthViewModel(),
+    viewModel: LoginViewModel = LoginViewModel(),
     signUpOnClick: () -> Unit = {}
 ) {
     Column(
@@ -56,23 +56,23 @@ fun LoginScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             CustomTextFieldForEmail(
-                text = authViewModel.loginFormState.email,
-                onValueChanged = { authViewModel.onLoginEvent(LoginFormEvent.EmailChanged(it)) },
-                isError = authViewModel.loginFormState.emailError != null,
-                errorMessage = authViewModel.loginFormState.emailError
+                text = viewModel.loginFormState.email,
+                onValueChanged = { viewModel.onLoginEvent(LoginFormEvent.EmailChanged(it)) },
+                isError = viewModel.loginFormState.emailError != null,
+                errorMessage = viewModel.loginFormState.emailError
             )
             Box(modifier = Modifier.height(30.dp))
             CustomTextFieldForPassword(
-                text = authViewModel.loginFormState.password,
+                text = viewModel.loginFormState.password,
                 onValueChanged = {
-                    authViewModel.onLoginEvent(LoginFormEvent.PasswordChanged(it))
+                    viewModel.onLoginEvent(LoginFormEvent.PasswordChanged(it))
                 },
                 visiblePasswordOnClick = {
-                    authViewModel.onLoginEvent(LoginFormEvent.VisiblePassword(!(authViewModel.loginFormState.isVisiblePassword)))
+                    viewModel.onLoginEvent(LoginFormEvent.VisiblePassword(!(viewModel.loginFormState.isVisiblePassword)))
                 },
-                isVisiblePassword = authViewModel.loginFormState.isVisiblePassword,
-                isError = authViewModel.loginFormState.passwordError != null,
-                errorMessage = authViewModel.loginFormState.passwordError,
+                isVisiblePassword = viewModel.loginFormState.isVisiblePassword,
+                isError = viewModel.loginFormState.passwordError != null,
+                errorMessage = viewModel.loginFormState.passwordError,
             )
             Box(modifier = Modifier.height(10.dp))
             Row(
@@ -94,7 +94,7 @@ fun LoginScreen(
             }
             Box(modifier = Modifier.height(20.dp))
             LoginButton(text = R.string.login, onClick = {
-                authViewModel.onLoginEvent(LoginFormEvent.Submit)
+                viewModel.onLoginEvent(LoginFormEvent.Submit)
             })
             Box(modifier = Modifier.height(30.dp))
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
