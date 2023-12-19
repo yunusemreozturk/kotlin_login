@@ -17,9 +17,10 @@ import com.example.login_signup.ui.theme.MyApplicationTheme
 import com.example.login_signup.ui.theme.Typography
 import com.example.login_signup.ui.widgets.FilledTextField
 import com.example.login_signup.ui.widgets.LoginButton
+import kotlinx.coroutines.flow.StateFlow
 
 @Composable
-fun SignUpScreen(signUpOnClick: () -> Unit = {}, userModel: UserModel = UserModel()) {
+fun SignUpScreen(signUpOnClick: () -> Unit = {}, userModel: StateFlow<UserModel>?) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -32,26 +33,26 @@ fun SignUpScreen(signUpOnClick: () -> Unit = {}, userModel: UserModel = UserMode
         Box(modifier = Modifier.height(30.dp))
         FilledTextField(
             title = R.string.full_name,
-            text = userModel.fullName ?: "",
-            onValueChange = { userModel.fullName = it },
+            text = userModel?.value?.fullName ?: "",
+            onValueChange = { userModel?.value?.fullName = it },
         )
         Box(modifier = Modifier.height(20.dp))
         FilledTextField(
             title = R.string.email,
-            text = userModel.email ?: "",
-            onValueChange = { userModel.email = it },
+            text = userModel?.value?.email ?: "",
+            onValueChange = { userModel?.value?.email = it },
         )
         Box(modifier = Modifier.height(20.dp))
         FilledTextField(
             title = R.string.password,
-            text = userModel.password ?: "",
-            onValueChange = { userModel.password = it },
+            text = userModel?.value?.password ?: "",
+            onValueChange = { userModel?.value?.password = it },
         )
         Box(modifier = Modifier.height(20.dp))
         FilledTextField(
             title = R.string.phone_no,
-            text = userModel.phoneNo ?: "",
-            onValueChange = { userModel.phoneNo = it },
+            text = userModel?.value?.phoneNo ?: "",
+            onValueChange = { userModel?.value?.phoneNo = it },
         )
         Box(modifier = Modifier.height(40.dp))
         LoginButton(text = R.string.sign_up, onClick = signUpOnClick)
@@ -63,7 +64,7 @@ fun SignUpScreen(signUpOnClick: () -> Unit = {}, userModel: UserModel = UserMode
 @Preview(showSystemUi = true, showBackground = true)
 fun SignUpScreenPreviewLight() {
     MyApplicationTheme(darkTheme = false) {
-        SignUpScreen()
+        SignUpScreen(userModel = null)
     }
 }
 
@@ -71,6 +72,6 @@ fun SignUpScreenPreviewLight() {
 @Preview(showSystemUi = true, showBackground = true)
 fun SignUpScreenPreviewDark() {
     MyApplicationTheme(darkTheme = true) {
-        SignUpScreen()
+        SignUpScreen(userModel = null)
     }
 }

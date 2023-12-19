@@ -18,6 +18,7 @@ import com.example.login_signup.ui.screens.SignUpScreen
 import com.example.login_signup.ui.screens.WelcomeScreen
 import com.example.login_signup.ui.widgets.TopAppBarWidget
 import com.example.login_signup.viewmodel.AuthViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 enum class AppScreen(@StringRes val title: Int) {
     Welcome(R.string.hello_welcome),
@@ -60,6 +61,7 @@ fun App(viewModel: AuthViewModel = viewModel()) {
             }
             composable(AppScreen.Login.name) {
                 LoginScreen(
+                    userModel = viewModel.uiState,
                     loginButtonOnClick = {
                         navController.navigate(AppScreen.Home.name) {
                             popUpTo(AppScreen.Welcome.name) {
@@ -71,13 +73,16 @@ fun App(viewModel: AuthViewModel = viewModel()) {
                 )
             }
             composable(AppScreen.SignUp.name) {
-                SignUpScreen(signUpOnClick = {
-                    navController.navigate(AppScreen.Home.name) {
-                        popUpTo(AppScreen.Welcome.name) {
-                            inclusive = true
+                SignUpScreen(
+                    signUpOnClick = {
+                        navController.navigate(AppScreen.Home.name) {
+                            popUpTo(AppScreen.Welcome.name) {
+                                inclusive = true
+                            }
                         }
-                    }
-                })
+                    },
+                    userModel = viewModel.uiState
+                )
             }
             composable(AppScreen.Home.name) {
                 HomeScreen()

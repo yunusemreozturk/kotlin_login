@@ -27,10 +27,11 @@ import com.example.login_signup.ui.theme.Primary
 import com.example.login_signup.ui.theme.Typography
 import com.example.login_signup.ui.widgets.LoginButton
 import com.example.login_signup.ui.widgets.FilledTextField
+import kotlinx.coroutines.flow.StateFlow
 
 @Composable
 fun LoginScreen(
-    userModel: UserModel = UserModel(),
+    userModel: StateFlow<UserModel>?,
     loginButtonOnClick: () -> Unit = {},
     signUpOnClick: () -> Unit = {}
 ) {
@@ -57,14 +58,14 @@ fun LoginScreen(
         ) {
             FilledTextField(
                 title = R.string.login,
-                text = userModel.email ?: "",
-                onValueChange = { userModel.email = it }
+                text = userModel?.value?.email ?: "",
+                onValueChange = { userModel?.value?.email = it }
             )
             Box(modifier = Modifier.height(30.dp))
             FilledTextField(
                 title = R.string.password,
-                text = userModel.password ?: "",
-                onValueChange = { userModel.password = it }
+                text = userModel?.value?.password ?: "",
+                onValueChange = { userModel?.value?.password = it }
             )
         }
         Box(modifier = Modifier.height(10.dp))
@@ -109,7 +110,7 @@ fun LoginScreen(
 @Composable
 fun LoginScreenPreviewLight() {
     MyApplicationTheme(darkTheme = false) {
-        LoginScreen()
+        LoginScreen(userModel = null)
     }
 }
 
@@ -117,7 +118,7 @@ fun LoginScreenPreviewLight() {
 @Composable
 fun LoginScreenPreviewDark() {
     MyApplicationTheme(darkTheme = true) {
-        LoginScreen()
+        LoginScreen(userModel = null)
     }
 }
 
