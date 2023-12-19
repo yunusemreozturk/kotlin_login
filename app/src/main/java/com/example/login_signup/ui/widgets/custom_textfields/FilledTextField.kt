@@ -1,4 +1,4 @@
-package com.example.login_signup.ui.widgets
+package com.example.login_signup.ui.widgets.custom_textfields
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -33,6 +33,7 @@ fun FilledTextField(title: Int, text: String, onValueChange: (text: String) -> U
             value = text,
             onValueChange = onValueChange,
             shape = CircleShape,
+
         )
     }
 }

@@ -19,4 +19,9 @@
     <string name="phone_no">Phone No</string>
     <string name="home">Home</string>
     <string name="back_button">Geri</string>
+    <string name="phone_number_should_be_content_just_digit">The phone number should be content just digit</string>
+    <string name="cannot_be_blank">This field cannot be blank</string>
+    <string name="password_must_short_8">Password must be short than 8</string>
+    <string name="password_contain_least_one_letter_digit">The password at least contain one letter and digit</string>
+    <string name="thats_not_valid_email">Thats not a valid email</string>
 </resources>

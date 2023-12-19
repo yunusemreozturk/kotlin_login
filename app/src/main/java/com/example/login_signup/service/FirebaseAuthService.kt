@@ -1,7 +1,5 @@
 package com.example.login_signup.service
 
-import android.util.Log
-import com.example.login_signup.models.UserModel
 import com.example.login_signup.util.CS
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
@@ -15,7 +13,7 @@ class FirebaseAuthService {
     fun getCurrentUser(): FirebaseUser? {
         val currentUser = auth.currentUser
         CS.d("$currentUser")
-        
+
         return currentUser
     }
 
