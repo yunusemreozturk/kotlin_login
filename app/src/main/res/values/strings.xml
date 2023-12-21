@@ -24,4 +24,5 @@
     <string name="password_must_short_8">Password must be short than 8</string>
     <string name="password_contain_least_one_letter_digit">The password at least contain one letter and digit</string>
     <string name="thats_not_valid_email">Thats not a valid email</string>
+    <string name="test">Test</string>
 </resources>

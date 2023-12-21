@@ -70,7 +70,12 @@ class SignUpViewModel : AuthViewModel() {
 
             is SignUpFormEvent.Submit -> {
                 if (validateEmail() && validatePassword() && validateName() && validatePhoneNo()) {
-                    CoroutineScope(Dispatchers.Default).launch { signUp() }
+                    CoroutineScope(Dispatchers.Default).launch {
+                        signUp(
+                            signUpFormState.email,
+                            signUpFormState.password
+                        )
+                    }
                 }
             }
         }

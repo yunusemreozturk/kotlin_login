@@ -22,16 +22,26 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 open class AuthViewModel : ViewModel() {
-    val authService: FirebaseAuthService = FirebaseAuthService()
+    private val _authService: FirebaseAuthService = FirebaseAuthService()
     var isBusy by mutableStateOf(false)
 
     private val _uiState = MutableStateFlow(UserModel())
     val uiState: StateFlow<UserModel> = _uiState.asStateFlow()
 
-    suspend fun login() {
+    init {
+        isBusy = true
+        val user = _authService.getCurrentUser();
+
+        if (user != null) {
+            _uiState.value = UserModel(id = user.uid, email = user.email)
+        }
+        isBusy = false
+    }
+
+    suspend fun login(email: String, password: String) {
         isBusy = true
         val user =
-            authService.signIn(uiState.value.email ?: "", uiState.value.password ?: "")
+            _authService.signIn(email, password)
 
         if (user != null) {
             _uiState.value = UserModel(id = user.uid, email = user.email)
@@ -40,14 +50,24 @@ open class AuthViewModel : ViewModel() {
     }
 
 
-    suspend fun signUp() {
+    suspend fun signUp(email: String, password: String) {
         isBusy = true
         val user =
-            authService.createAccount(uiState.value.email ?: "", uiState.value.password ?: "")
+            _authService.createAccount(email, password)
 
         if (user != null) {
             _uiState.value = UserModel(id = user.uid, email = user.email)
         }
+        isBusy = false
+    }
+
+    fun signOut() {
+        isBusy = true
+
+        _authService.signOut()
+
+        _uiState.value = UserModel()
+
         isBusy = false
     }
 }

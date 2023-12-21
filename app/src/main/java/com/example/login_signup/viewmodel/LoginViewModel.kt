@@ -3,7 +3,6 @@ package com.example.login_signup.viewmodel
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.lifecycle.ViewModel
 import com.example.login_signup.ui.screens.login.LoginFormEvent
 import com.example.login_signup.ui.screens.login.LoginFormState
 import com.example.login_signup.util.validations.EmailValidate
@@ -47,7 +46,12 @@ class LoginViewModel : AuthViewModel() {
 
             is LoginFormEvent.Submit -> {
                 if (validateEmail() && validatePassword()) {
-                    CoroutineScope(Dispatchers.Default).launch { login() }
+                    CoroutineScope(Dispatchers.Default).launch {
+                        login(
+                            loginFormState.email,
+                            loginFormState.password
+                        )
+                    }
                 }
             }
         }

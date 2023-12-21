@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -33,7 +34,7 @@ enum class AppScreen(@StringRes val title: Int) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun App(
-    viewModel: AuthViewModel = viewModel(),
+    authViewModel: AuthViewModel = viewModel(),
     loginViewModel: LoginViewModel = viewModel(),
     signUpViewModel: SignUpViewModel = viewModel()
 ) {
@@ -43,8 +44,9 @@ fun App(
     val currentScreen = AppScreen.valueOf(
         backStackEntry?.destination?.route ?: AppScreen.Welcome.name
     )
+    val uiState = authViewModel.uiState.collectAsState()
 
-    if (viewModel.isBusy) {
+    if (authViewModel.isBusy) {
         SplashScreen()
     } else {
         Scaffold(
@@ -58,7 +60,7 @@ fun App(
         ) {
             NavHost(
                 navController = navController,
-                startDestination = AppScreen.Welcome.name,
+                startDestination = if (uiState.value.id != null) AppScreen.Home.name else AppScreen.Welcome.name,
                 modifier = Modifier
                     .padding(it)
                     .padding(horizontal = 30.dp),
@@ -76,10 +78,10 @@ fun App(
                     )
                 }
                 composable(AppScreen.SignUp.name) {
-                    SignUpScreen(viewModel = signUpViewModel)
+                    SignUpScreen(signUpViewModel = signUpViewModel)
                 }
                 composable(AppScreen.Home.name) {
-                    HomeScreen()
+                    HomeScreen(authViewModel = authViewModel)
                 }
             }
         }

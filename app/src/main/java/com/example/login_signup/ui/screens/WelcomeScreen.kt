@@ -21,7 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.login_signup.R
 import com.example.login_signup.ui.theme.MyApplicationTheme
-import com.example.login_signup.ui.widgets.LoginButton
+import com.example.login_signup.ui.widgets.CustomButton
 import com.example.login_signup.ui.widgets.SocialSignButton
 
 @Composable
@@ -54,9 +54,9 @@ fun WelcomeScreen(loginButtonOnClick: () -> Unit = {}, signUpOnClick: () -> Unit
             ),
         )
         Box(modifier = Modifier.height(40.dp))
-        LoginButton(text = R.string.login, onClick = loginButtonOnClick)
+        CustomButton(text = R.string.login, onClick = loginButtonOnClick)
         Box(modifier = Modifier.height(10.dp))
-        LoginButton(text = R.string.sign_up, onClick = signUpOnClick)
+        CustomButton(text = R.string.sign_up, onClick = signUpOnClick)
         Box(modifier = Modifier.height(80.dp))
         Text(
             text = stringResource(id = R.string.or_via_social_media),

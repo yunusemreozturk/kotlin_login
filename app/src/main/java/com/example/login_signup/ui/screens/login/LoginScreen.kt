@@ -25,7 +25,7 @@ import com.example.login_signup.ui.theme.MyApplicationTheme
 import com.example.login_signup.ui.theme.Primary
 import com.example.login_signup.ui.theme.Typography
 import com.example.login_signup.ui.widgets.custom_textfields.CustomTextFieldForEmail
-import com.example.login_signup.ui.widgets.LoginButton
+import com.example.login_signup.ui.widgets.CustomButton
 import com.example.login_signup.ui.widgets.custom_textfields.CustomTextFieldForPassword
 import com.example.login_signup.viewmodel.LoginViewModel
 
@@ -93,7 +93,7 @@ fun LoginScreen(
                 )
             }
             Box(modifier = Modifier.height(20.dp))
-            LoginButton(text = R.string.login, onClick = {
+            CustomButton(text = R.string.login, onClick = {
                 viewModel.onLoginEvent(LoginFormEvent.Submit)
             })
             Box(modifier = Modifier.height(30.dp))

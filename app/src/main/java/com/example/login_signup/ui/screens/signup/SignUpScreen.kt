@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -20,14 +19,14 @@ import com.example.login_signup.R
 import com.example.login_signup.ui.theme.MyApplicationTheme
 import com.example.login_signup.ui.theme.Typography
 import com.example.login_signup.ui.widgets.custom_textfields.CustomTextField
-import com.example.login_signup.ui.widgets.LoginButton
+import com.example.login_signup.ui.widgets.CustomButton
 import com.example.login_signup.ui.widgets.custom_textfields.CustomTextFieldForEmail
 import com.example.login_signup.ui.widgets.custom_textfields.CustomTextFieldForPassword
 import com.example.login_signup.viewmodel.SignUpViewModel
 
 @Composable
 fun SignUpScreen(
-    viewModel: SignUpViewModel = SignUpViewModel(),
+    signUpViewModel: SignUpViewModel = SignUpViewModel(),
 ) {
     Column(
         modifier = Modifier
@@ -41,9 +40,9 @@ fun SignUpScreen(
         Box(modifier = Modifier.height(30.dp))
         CustomTextField(
             placeholder = stringResource(id = R.string.full_name),
-            text = viewModel.signUpFormState.fullName,
+            text = signUpViewModel.signUpFormState.fullName,
             onValueChange = {
-                viewModel.onSignUpEvent(SignUpFormEvent.FullNameChanged(it))
+                signUpViewModel.onSignUpEvent(SignUpFormEvent.FullNameChanged(it))
             },
             keyboardType = KeyboardType.Email,
             imeAction = ImeAction.Next,
@@ -51,37 +50,37 @@ fun SignUpScreen(
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp),
             singleLine = true,
-            isError = viewModel.signUpFormState.fullNameError != null,
-            errorMessage = viewModel.signUpFormState.fullNameError,
+            isError = signUpViewModel.signUpFormState.fullNameError != null,
+            errorMessage = signUpViewModel.signUpFormState.fullNameError,
         )
         Box(modifier = Modifier.height(20.dp))
         CustomTextFieldForEmail(
-            text = viewModel.signUpFormState.email,
+            text = signUpViewModel.signUpFormState.email,
             onValueChanged = {
-                viewModel.onSignUpEvent(SignUpFormEvent.EmailChanged(it))
+                signUpViewModel.onSignUpEvent(SignUpFormEvent.EmailChanged(it))
             },
-            isError = viewModel.signUpFormState.emailError != null,
-            errorMessage = viewModel.signUpFormState.emailError
+            isError = signUpViewModel.signUpFormState.emailError != null,
+            errorMessage = signUpViewModel.signUpFormState.emailError
         )
         Box(modifier = Modifier.height(20.dp))
         CustomTextFieldForPassword(
-            text = viewModel.signUpFormState.password,
+            text = signUpViewModel.signUpFormState.password,
             onValueChanged = {
-                viewModel.onSignUpEvent(SignUpFormEvent.PasswordChanged(it))
+                signUpViewModel.onSignUpEvent(SignUpFormEvent.PasswordChanged(it))
             },
             visiblePasswordOnClick = {
-                viewModel.onSignUpEvent(SignUpFormEvent.VisiblePassword(!(viewModel.signUpFormState.isVisiblePassword)))
+                signUpViewModel.onSignUpEvent(SignUpFormEvent.VisiblePassword(!(signUpViewModel.signUpFormState.isVisiblePassword)))
             },
-            isVisiblePassword = viewModel.signUpFormState.isVisiblePassword,
-            isError = viewModel.signUpFormState.passwordError != null,
-            errorMessage = viewModel.signUpFormState.passwordError,
+            isVisiblePassword = signUpViewModel.signUpFormState.isVisiblePassword,
+            isError = signUpViewModel.signUpFormState.passwordError != null,
+            errorMessage = signUpViewModel.signUpFormState.passwordError,
         )
         Box(modifier = Modifier.height(20.dp))
         CustomTextField(
             placeholder = stringResource(id = R.string.phone_no),
-            text = viewModel.signUpFormState.phoneNo ?: "",
+            text = signUpViewModel.signUpFormState.phoneNo ?: "",
             onValueChange = {
-                viewModel.onSignUpEvent(SignUpFormEvent.PhoneNoChanged(it))
+                signUpViewModel.onSignUpEvent(SignUpFormEvent.PhoneNoChanged(it))
             },
             keyboardType = KeyboardType.Number,
             imeAction = ImeAction.Next,
@@ -89,12 +88,12 @@ fun SignUpScreen(
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp),
             singleLine = true,
-            isError = viewModel.signUpFormState.phoneNoError != null,
-            errorMessage = viewModel.signUpFormState.phoneNoError
+            isError = signUpViewModel.signUpFormState.phoneNoError != null,
+            errorMessage = signUpViewModel.signUpFormState.phoneNoError
         )
         Box(modifier = Modifier.height(40.dp))
-        LoginButton(text = R.string.sign_up, onClick = {
-            viewModel.onSignUpEvent(SignUpFormEvent.Submit)
+        CustomButton(text = R.string.sign_up, onClick = {
+            signUpViewModel.onSignUpEvent(SignUpFormEvent.Submit)
         })
     }
 
