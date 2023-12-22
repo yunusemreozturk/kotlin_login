@@ -6,21 +6,11 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.example.login_signup.models.UserModel
 import com.example.login_signup.service.FirebaseAuthService
-import com.example.login_signup.ui.screens.login.LoginFormEvent
-import com.example.login_signup.ui.screens.login.LoginFormState
-import com.example.login_signup.ui.screens.signup.SignUpFormEvent
-import com.example.login_signup.ui.screens.signup.SignUpFormState
-import com.example.login_signup.util.validations.EmailValidate
-import com.example.login_signup.util.validations.NameValidate
-import com.example.login_signup.util.validations.PasswordValidate
-import com.example.login_signup.util.validations.PhoneNoValidate
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import com.example.login_signup.util.CS
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
-
 open class AuthViewModel : ViewModel() {
     private val _authService: FirebaseAuthService = FirebaseAuthService()
     var isBusy by mutableStateOf(false)
@@ -30,11 +20,12 @@ open class AuthViewModel : ViewModel() {
 
     init {
         isBusy = true
-        val user = _authService.getCurrentUser();
 
+        val user = _authService.getCurrentUser();
         if (user != null) {
             _uiState.value = UserModel(id = user.uid, email = user.email)
         }
+
         isBusy = false
     }
 
@@ -45,6 +36,7 @@ open class AuthViewModel : ViewModel() {
 
         if (user != null) {
             _uiState.value = UserModel(id = user.uid, email = user.email)
+            delay(1000)
         }
         isBusy = false
     }
@@ -57,6 +49,7 @@ open class AuthViewModel : ViewModel() {
 
         if (user != null) {
             _uiState.value = UserModel(id = user.uid, email = user.email)
+            delay(1000)
         }
         isBusy = false
     }
